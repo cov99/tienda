@@ -8,6 +8,6 @@ def all_categories(request):
 
     return render(
         request,
-        "category_list.html",
+        "all_categories.html",
         context = context
     )

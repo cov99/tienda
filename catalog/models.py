@@ -18,6 +18,7 @@ class Product(models.Model):
     price = models.PositiveIntegerField(default=0)
     stock = models.IntegerField(default=0)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    photo = models.ImageField(upload_to="images/products/", null=True, blank=True)
 
     class Meta:
         app_label = "catalog"
