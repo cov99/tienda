@@ -15,3 +15,18 @@ def all_products(request):
         "all_products.html",
         context=context
     )
+
+def products_by_category(request, category_id):
+    context = dict()
+    products = product_providers.filter_products_by_category_id(
+        category_id = category_id
+    )
+    category = category_providers.get_category_by_id(id=category_id)
+    categories = category_providers.get_all_categories()
+    context = {
+        "products": products,
+        "categories": categories,
+        "category": category
+    }
+    return render(request, "products_by_category.html", context)
+

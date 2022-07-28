@@ -17,14 +17,14 @@ from django.contrib import admin
 from django.conf import settings
 from django.urls import path
 from django.conf.urls.static import static
-from catalog.views.product import all_products
+from catalog.views.product import all_products, products_by_category
 from catalog.views.category import all_categories
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', all_products, name='index'),
     path('/all-categories', all_categories, name='all_categories'),
-    path('category/<category_id>/', all_categories, name='category'),
+    path('products-category/<category_id>/', products_by_category, name='products_by_category'),
 ]
 
 if settings.DEBUG:

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -50,18 +48,22 @@
         </header>
         <!-- Section-->
         <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
+            <div class="container px-4 px-lg-5 mt-5 text-center">
+                <h2>{{ category.name }}</h2>
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    {% for category in categories %}
+                    {% for product in products %}
                     <div class="col-md-3 mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <img class="card-img-top" src="{{ category.icon.url }}" alt="..." />
+                            <img class="card-img-top" src="{{ product.photo.url }}" alt="..." />
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">{{ category.name }}</h5>
+                                    <span>{{ product.category }}</span>
+                                    <h5 class="fw-bolder">{{ product.name }}</h5>
+                                    <!-- Product price-->
+                                    ${{ product.price }}
                                 </div>
                             </div>
                         </div>

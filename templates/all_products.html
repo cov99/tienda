@@ -29,7 +29,7 @@
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorias</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 {% for category in categories %}
-                                    <li><a class="dropdown-item" href="{% url 'category' category_id=category.id %}">{{ category.name }}</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'products_by_category' category_id=category.id %}">{{ category.name }}</a></li>
                                 {% endfor %}
                                 <hr />
                                 <li><a class="dropdown-item" href="{% url 'all_categories' %}">Ver todas</a></li>
