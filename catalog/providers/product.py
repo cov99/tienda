@@ -15,6 +15,9 @@ def filter_products_by_name(name:str):
     products = Product.objects.filter(name__icontains=name)
     return products 
     
+def get_product_by_id(product_id):
+    product = Product.objects.get(id=product_id)
+    return product
 
 
 

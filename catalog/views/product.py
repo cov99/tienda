@@ -5,10 +5,8 @@ from catalog.providers import category as category_providers
 def all_products(request):
     context = dict()
     products = product_providers.get_all_products()
-    categories = category_providers.get_all_categories()
     context = {
         "products": products,
-        "categories": categories
     }
     return render(
         request,
@@ -22,10 +20,8 @@ def products_by_category(request, category_id):
         category_id = category_id
     )
     category = category_providers.get_category_by_id(id=category_id)
-    categories = category_providers.get_all_categories()
     context = {
         "products": products,
-        "categories": categories,
         "category": category
     }
     return render(request, "products_by_category.html", context)

@@ -15,16 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf import settings
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls.static import static
 from catalog.views.product import all_products, products_by_category
 from catalog.views.category import all_categories
+from orders.views import add_product_to_cart
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', all_products, name='index'),
-    path('/all-categories', all_categories, name='all_categories'),
+    path('/all-categories/', all_categories, name='all_categories'),
+    path('/add-product/', add_product_to_cart, name='add_product_to_cart'),
     path('products-category/<category_id>/', products_by_category, name='products_by_category'),
+    path("accounts/", include("django.contrib.auth.urls")),
 ]
 
 if settings.DEBUG:
