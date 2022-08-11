@@ -31,9 +31,11 @@
                             <div style="height: 100%; margin-bottom: 20px; display: flex; align-items:flex-end; justify-content: center;">
                                 <form action="{% url 'add_product_to_cart' %}" method="post">
                                     {% csrf_token %}
-                                    <input type="number" name="quantity" value="1" min="1" max="99">
                                     <input type="hidden" name="product_id" value="{{ product.id }}">
-                                    <button type="submit" class="btn btn-success">Agregar al carro</button>
+                                    <div class="input-group mb-3">
+                                        <input type="number" class="form-control" placeholder="Cantidad" aria-label="Cantidad" value="1" min="1" max="99" name="quantity" aria-describedby="button-addon2">
+                                        <button class="btn btn-success" type="submit" id="button-addon2">Agregar</button>
+                                      </div>
                                 </form>
                             </div>
                         </div>

@@ -1,9 +1,11 @@
 from http.client import HTTPResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect 
 from orders.providers import cart as cart_providers
 from catalog.providers import product as product_providers
 from orders.providers import cart_product as cart_product_providers
 from django.http import HttpResponse
+from django.contrib import messages
+from django.urls import reverse
 
 
 def add_product_to_cart(request):
@@ -18,9 +20,12 @@ def add_product_to_cart(request):
             cart = cart,
             quantity = quantity
         )
-        return HttpResponse("El Producto se agrego correctamente")
+        messages.success(request, "El producto se agrego correctamente")
+        return redirect(reverse("index"))
     else:
-        return HttpResponse(
-            content = "Debes iniciar sesion",
-            status = 400
+        messages.warning(
+            request, 
+            "Debes iniciar sesion para añadir productos a tu carrito"
         )
+        return redirect(reverse("index"))
+

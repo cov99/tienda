@@ -11,6 +11,13 @@
             </div>
         </header>
         <!-- Section-->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{message.tags}}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -31,9 +38,11 @@
                             <div style="height: 100%; margin-bottom: 20px; display: flex; align-items:flex-end; justify-content: center;">
                                 <form action="{% url 'add_product_to_cart' %}"" method="post">
                                     {% csrf_token %}
-                                    <input type="number" name="quantity" value="1" min="1" max="99">
                                     <input type="hidden" name="product_id" value="{{ product.id }}">
-                                    <button type="submit" class="btn btn-success">Agregar al carro</button>
+                                    <div class="input-group mb-3">
+                                        <input type="number" name="quantity" class="form-control" placeholder="Cantidad" aria-label="Cantidad" value="1" min="1" max="99" aria-describedby="button-addon2">
+                                        <button class="btn btn-success" type="submit" id="button-addon2">Agregar</button>
+                                      </div>
                                 </form>
                             </div>
                         </div>

@@ -36,17 +36,60 @@
                     </ul>
                 </div>
                 {% if user.is_authenticated %}
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Carrito
-                    </button>
-                    <div class="dropdown-menu">
-                        <div class="card">
-                          <div class="card-header">Perfume Dolce no se que</div>
-                          <div class="card-text">$ 100</div>
-                          <button class="btn btn-danger">Eliminar</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Carrito
+                  </button>
+                  
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Mi carrito</h5>
                         </div>
-                      </form>
+                        <div class="modal-body">
+                            {% if not cart_products %}
+                                <div class="alert alert-warning" role="alert">
+                                 No tienes productos en tu carrito
+                                </div>
+                            {% endif %}
+                            {% for cart_product in cart_products %}
+                            <div class="card mb-3" style="max-width: 540px;">
+                                <div class="row g-0">
+                                  <div class="col-md-4">
+                                    <img src="{{ cart_product.product.photo.url }}" class="img-fluid contain" alt="...">
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="card-body">
+                                      <h5 class="card-title">{{ cart_product.product.name }}</h5>
+                                      <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <strong>Cantidad:</strong> {{ cart_product.quantity }}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Precio unitario:</strong> $ {{ cart_product.product.price }}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Total:</strong> $ {% widthratio cart_product.product.price 1 cart_product.quantity %}
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endfor %}
+                        </div>
+                        <div class="modal-footer">
+                            {% if cart_products %}
+                                <h3>Total $ {{ cart_total }}</h3>
+                            {% endif %}
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            {% if cart_products %}
+                                <button type="button" class="btn btn-success">Pagar</button>
+                            {% endif %}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 {% else %}
                 <a class="btn btn-outline-info" href="/accounts/login/">Iniciar sesion</a>
