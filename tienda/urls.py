@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from catalog.views.product import all_products, products_by_category
 from catalog.views.category import all_categories
-from orders.views import add_product_to_cart
+from orders.views import add_product_to_cart, checkout, remove_product_from_cart
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +27,8 @@ urlpatterns = [
     path('/all-categories/', all_categories, name='all_categories'),
     path('/add-product/', add_product_to_cart, name='add_product_to_cart'),
     path('products-category/<category_id>/', products_by_category, name='products_by_category'),
+    path("checkout/", checkout, name="checkout"),
+    path("remove-product/", remove_product_from_cart, name="remove_product"),
     path("accounts/", include("django.contrib.auth.urls")),
 ]
 

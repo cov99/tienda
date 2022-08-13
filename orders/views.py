@@ -29,3 +29,19 @@ def add_product_to_cart(request):
         )
         return redirect(reverse("index"))
 
+def remove_product_from_cart(request):
+    if request.method == "POST" and request.user.is_authenticated:
+        cart_product_id = request.POST.get("cart_product_id")
+        cart_product_providers.remove_product_from_cart_by_id(
+            cart_product_id=cart_product_id,
+        )
+        messages.warning(request, "El producto se elimino correctamente del carrito")
+        return redirect(reverse("index"))
+        
+
+
+def checkout(request):
+    return render(
+        request,
+        "checkout.html"
+    )

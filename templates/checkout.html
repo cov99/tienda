@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class='container'>
+   <div class="row">
+    <div class="col">
+        <div class="card mt-5 mb-5">
+            <div class="card-header">Confirma tu orden</div>
+            <div class="card-body">
+                <div class="row">
+                {% for cart_product in cart_products %}
+                    <div class="col col-6">
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                              <div class="col-md-4" style="display: flex; justify-content: center; align-items: center;">
+                                <img src="{{ cart_product.product.photo.url }}" class="img-thumbnail" style="margin-left: 40px;">
+                              </div>
+                              <div class="col-md-8">
+                                <div class="card-body">
+                                  <h5 class="card-title">
+                                    <div class="row">
+                                      <div class="col col-9">
+                                        {{ cart_product.product.name }}
+                                      </div>
+                                      <div class="col col-3">
+                                        <form action="{% url 'remove_product' %}" method="post">
+                                          {% csrf_token %}
+                                          <input type="hidden" name="cart_product_id" value="{{ cart_product.id }}">
+                                          <button type="submit" class="btn btn-danger">
+                                            <i class="bi bi-trash3"></i>
+                                          </button>
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </h5>
+                                  <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <strong>Cantidad:</strong> {{ cart_product.quantity }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <strong>Precio unitario:</strong> $ {{ cart_product.product.price }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <strong>Total:</strong> $ {% widthratio cart_product.product.price 1 cart_product.quantity %}
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="card-body">
+                <a href="{% url 'index' %}" class="btn btn-link btn-block">
+                    Añadir mas productos a mi orden
+                </a>
+            </div>
+            </div>
+        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="card mt-5 mb-5">
+                <div class="card-header">Informacion de envio</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col col-12 col-md-6">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Ciudad</label>
+                                <input type="text" class="form-control" name="recipient_city" placeholder="Ingresa la ciudad para el envio">
+                              </div>
+                        </div>
+                        <div class="col col-12 col-md-6">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Direccion</label>
+                                <input type="text" class="form-control" name="recipient_city" placeholder="Ingresa la direccion para el envio">
+                              </div>
+                        </div>
+                        <div class="col col-12 col-md-6">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Nombre de quien recibe</label>
+                                <input type="text" class="form-control" name="recipient_name" placeholder="Ingresa el nombre de quien recibe el pedido">
+                              </div>
+                        </div>
+                        <div class="col col-12 col-md-6">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Telefono de quien recibe</label>
+                                <input type="number" class="form-control" name="recipient_phone" placeholder="Ingresa el telefono de quien recibe el pedido">
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-5 mb-5">
+                <div class="card-header">Pago</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col col-12 col-md-6">
+                            <h4>Selecciona un metodo de pago</h4>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col col-12 col-md-4">
+                                            <img src="https://th.bing.com/th/id/OIP.fP7TzmOChSnpnt15EbuyEQAAAA?pid=ImgDet&rs=1" alt="" class="img-fluid">
+                                        </div>
+                                        <div class="col col-12 col-md-8">
+                                            <h3>
+                                                <input type="checkbox" name="payment_method" value="webpay" checked id="">
+                                                Pago con Webpay</h3>
+                                            <span class="text-muted">Podras pagar con tarjeta de debito, credito o billeteras asociadas a tu cuenta de onepay.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-12 col-md-6 text-center">
+                            <div class="card" style="height: 100%;">
+                                <div class="card-body">
+                                    <span class="text-muted mt-6">TOTAL ORDEN</span>
+                            <h2 class="text-bold">$ {{ cart_total }}</h2>
+                            <button type="submit" class="btn btn-success btn-block">Proceder a pagar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+   </div>
+</div>
+{% endblock %}

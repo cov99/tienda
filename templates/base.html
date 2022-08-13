@@ -9,7 +9,7 @@
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
         <!-- Core theme CSS (includes Bootstrap)-->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -56,12 +56,27 @@
                             {% for cart_product in cart_products %}
                             <div class="card mb-3" style="max-width: 540px;">
                                 <div class="row g-0">
-                                  <div class="col-md-4">
-                                    <img src="{{ cart_product.product.photo.url }}" class="img-fluid contain" alt="...">
+                                  <div class="col-md-4" style="display: flex; justify-content: center; align-items: center;">
+                                    <img src="{{ cart_product.product.photo.url }}" class="img-thumbnail" style="margin-left: 40px;">
                                   </div>
                                   <div class="col-md-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">{{ cart_product.product.name }}</h5>
+                                      <h5 class="card-title">
+                                        <div class="row">
+                                          <div class="col col-9">
+                                            {{ cart_product.product.name }}
+                                          </div>
+                                          <div class="col col-3">
+                                            <form action="{% url 'remove_product' %}" method="post">
+                                              {% csrf_token %}
+                                              <input type="hidden" name="cart_product_id" value="{{ cart_product.id }}">
+                                              <button type="submit" class="btn btn-danger">
+                                                <i class="bi bi-trash3"></i>
+                                              </button>
+                                            </form>
+                                          </div>
+                                        </div>
+                                      </h5>
                                       <ul class="list-group">
                                         <li class="list-group-item">
                                             <strong>Cantidad:</strong> {{ cart_product.quantity }}
@@ -85,7 +100,7 @@
                             {% endif %}
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             {% if cart_products %}
-                                <button type="button" class="btn btn-success">Pagar</button>
+                                <a href="{% url 'checkout' %}" class="btn btn-success">Pagar</a>
                             {% endif %}
                         </div>
                       </div>
